@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}New Policy — ClaimCare{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>📄 Customer &amp; Policy Information</h1>
+    <p>Register a policy before submitting claims against it. Policy numbers must be unique.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="card-title"><span class="card-icon">📝</span> Add policy</h2>
+  {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+  {% if success %}<div class="alert alert-success">{{ success }}</div>{% endif %}
+  <form method="post">
+    <div class="grid2">
+      <label>Customer Name<input type="text" name="customer_name" required placeholder="e.g. Asha Sharma"></label>
+      <label>Customer ID<input type="text" name="customer_id" required placeholder="e.g. CUST-001"></label>
+      <label>Policy Number<input type="text" name="policy_number" required placeholder="e.g. POL-1001"></label>
+      <label>Policy Type
+        <select name="policy_type" required>
+          <option value="">— select —</option>
+          <option>Health</option>
+          <option>Motor</option>
+          <option>Home</option>
+          <option>Life</option>
+          <option>Travel</option>
+        </select>
+      </label>
+      <label>Policy Start Date<input type="date" name="policy_start_date" required></label>
+      <label>Coverage Amount (₹)<input type="number" name="coverage_amount" step="0.01" min="0" required placeholder="e.g. 100000"></label>
+    </div>
+    <div class="form-footer">
+      <button type="submit" class="btn primary">💾 Save Policy</button>
+      <a href="{{ url_for('claims_list') }}" class="btn ghost">View claims</a>
+    </div>
+  </form>
+</div>
+
+<h2>Saved policies ({{ policies|length }})</h2>
+{% if policies %}
+<div class="table-wrap">
+<table class="compact">
+  <thead><tr><th>Policy No</th><th>Customer</th><th>Type</th><th>Start</th><th>Coverage</th></tr></thead>
+  <tbody>
+  {% for p in policies %}
+  <tr>
+    <td><span class="row-id">{{ p.policy_number }}</span></td>
+    <td>{{ p.customer_name }} <span class="muted small">({{ p.customer_id }})</span></td>
+    <td>{{ p.policy_type }}</td>
+    <td>{{ p.policy_start_date }}</td>
+    <td class="amount">{{ p.coverage_amount }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="card empty"><div class="big">📄</div><p class="muted">No policies saved yet — add your first policy above.</p></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Login — ClaimCare{% endblock %}
+{% block content %}
+<div class="login-wrap">
+  <div class="login-brand">
+    <div class="shield">🛡️</div>
+    <h1>Arinsa ClaimCare</h1>
+    <p>Staff login for the claim management system</p>
+  </div>
+  <div class="card">
+    <h2 class="card-title"><span class="card-icon">🔐</span> Staff Login</h2>
+    <p class="muted small">Use the shared demo credential to access the dashboard, policies and claims.</p>
+    {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+    <form method="post" action="{{ url_for('login') }}">
+      <label>Username
+        <input type="text" name="username" required autocomplete="username" placeholder="Enter username" autofocus>
+      </label>
+      <label>Password
+        <input type="password" name="password" required autocomplete="current-password" placeholder="Enter password">
+      </label>
+      <div class="form-footer">
+        <button type="submit" class="btn primary block">Log In →</button>
+      </div>
+    </form>
+    <p class="muted small" style="margin-bottom:0">Demo login: <code>admin / admin123</code></p>
+  </div>
+</div>
+{% endblock %}

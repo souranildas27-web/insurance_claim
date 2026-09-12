@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Guard.In{% endblock %}
+{% block content %}
+<div class="dash-hero">
+  <div class="dash-hero-text">
+    <span class="pill-badge"><span class="pulse"></span> Live Overview</span>
+    <h1>Dashboard</h1>
+    <p>Every claim at a glance — totals, statuses, and what needs review right now.</p>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('policy') }}" class="btn ghost btn-pill"><i class="fa-solid fa-plus"></i> New Policy</a>
+    <a href="{{ url_for('claim') }}" class="btn primary btn-pill btn-get">New Claim <span class="arrow-circle"><i class="fa-solid fa-arrow-right"></i></span></a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat c-total">
+    <span class="icon-badge navy"><i class="fa-solid fa-box-archive"></i></span>
+    <span class="num">{{ counts.total }}</span>
+    <span class="lbl">Total claims</span>
+  </div>
+  <div class="stat c-submitted">
+    <span class="icon-badge gray"><i class="fa-solid fa-inbox"></i></span>
+    <span class="num">{{ counts.submitted }}</span>
+    <span class="lbl">Submitted</span>
+  </div>
+  <div class="stat c-review">
+    <span class="icon-badge blue"><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+    <span class="num">{{ counts.under_review }}</span>
+    <span class="lbl">Under Review</span>
+  </div>
+  <div class="stat c-approved">
+    <span class="icon-badge green"><i class="fa-solid fa-circle-check"></i></span>
+    <span class="num">{{ counts.approved }}</span>
+    <span class="lbl">Approved</span>
+  </div>
+  <div class="stat c-rejected">
+    <span class="icon-badge red"><i class="fa-solid fa-circle-xmark"></i></span>
+    <span class="num">{{ counts.rejected }}</span>
+    <span class="lbl">Rejected</span>
+  </div>
+  <div class="stat warn">
+    <span class="icon-badge amber"><i class="fa-solid fa-triangle-exclamation"></i></span>
+    <span class="num">{{ counts.flagged }}</span>
+    <span class="lbl">Flagged for review</span>
+  </div>
+</div>
+
+<div class="card section-card">
+  <div class="card-head">
+    <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent claims</h2>
+    <a href="{{ url_for('claims_list') }}" class="link-more">View all claims <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+  {% if recent %}
+  <div class="table-wrap">
+  <table class="compact">
+    <thead><tr><th>Claim ID</th><th>Policy</th><th>Amount</th><th>Status</th><th>Risk flag</th></tr></thead>
+    <tbody>
+    {% for c in recent %}
+    <tr>
+      <td><span class="row-id">{{ c.claim_id }}</span></td>
+      <td>{{ c.policy_number }}</td>
+      <td class="amount">₹{{ c.claim_amount }}</td>
+      <td><span class="badge status-{{ c.status|lower|replace(' ', '-') }}">{{ c.status }}</span></td>
+      <td><span class="badge risk-{{ c.risk_level|lower|replace(' ', '-') }}">{{ c.risk_level }}</span></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <div class="empty">
+    <div class="empty-icon"><i class="fa-solid fa-inbox"></i></div>
+    <p class="muted">No claims yet. <a href="{{ url_for('claim') }}">Submit the first claim</a>.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

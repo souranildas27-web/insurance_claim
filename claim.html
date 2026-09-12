@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}New Claim — ClaimCare{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>🧾 Claim Submission</h1>
+    <p>Every claim is auto-checked against the risk rules and flagged instantly.</p>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('claims_list') }}" class="btn ghost">View all claims</a>
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="card-title"><span class="card-icon">➕</span> Submit a claim</h2>
+  {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+  {% if success %}<div class="alert alert-success">{{ success }}</div>{% endif %}
+  <form method="post">
+    <div class="grid2">
+      <label>Claim ID <span class="hint">Optional — leave blank to auto-generate (CLM-0001…)</span>
+        <input type="text" name="claim_id" placeholder="e.g. CLM-0001 or leave blank">
+      </label>
+      <label>Policy Number
+        {% if policies %}
+        <input type="text" name="policy_number" required list="policies" placeholder="e.g. POL-1001">
+        <datalist id="policies">
+          {% for p in policies %}<option value="{{ p.policy_number }}">{% endfor %}
+        </datalist>
+        {% else %}
+        <input type="text" name="policy_number" required placeholder="e.g. POL-1001">
+        {% endif %}
+      </label>
+      <label>Claim Type
+        <select name="claim_type" required>
+          <option value="">— select —</option>
+          <option>Hospitalization</option>
+          <option>Accident</option>
+          <option>Theft</option>
+          <option>Fire / Property</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Claim Amount (₹)<input type="number" name="claim_amount" step="0.01" min="0" required placeholder="e.g. 25000"></label>
+      <label>Previous Claim Count<input type="number" name="previous_claim_count" step="1" min="0" value="0" required></label>
+    </div>
+    <label>Claim Description <span class="hint">Blank triggers the “incomplete info” review flag.</span>
+      <textarea name="claim_description" rows="3" placeholder="Describe what happened…"></textarea>
+    </label>
+    <div class="form-footer">
+      <button type="submit" class="btn primary">📨 Submit Claim</button>
+    </div>
+  </form>
+</div>
+
+{% if result %}
+<div class="card result risk-hl-{{ 'high' if result.risk_level == 'High Risk' else ('review' if result.risk_level == 'Review Required' else 'normal') }}">
+  <h2>Result: {{ result.claim_id }} —
+    <span class="badge risk-{{ result.risk_level|lower|replace(' ', '-') }}">{{ result.risk_level }}</span>
+  </h2>
+  {% if result.risk_reasons %}
+  <p class="muted small">Why this flag was raised:</p>
+  <ul>
+    {% for r in result.risk_reasons %}<li>{{ r }}</li>{% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">No risk rules triggered — claim looks normal.</p>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

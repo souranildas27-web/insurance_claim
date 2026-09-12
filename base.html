@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Guard.In — Insurance{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a href="{{ url_for('dashboard') if session.get('logged_in') else url_for('landing') }}" class="brand">
+      <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
+      <span class="brand-text">Guard<span class="brand-dot">.</span>In<small>Claim Management &amp; Risk Review</small></span>
+    </a>
+    {% if session.get('logged_in') %}
+    <nav class="nav">
+      <a href="{{ url_for('dashboard') }}" class="{% if request.endpoint == 'dashboard' %}active{% endif %}"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="{{ url_for('policy') }}" class="{% if request.endpoint == 'policy' %}active{% endif %}"><i class="fa-solid fa-file-contract"></i> New Policy</a>
+      <a href="{{ url_for('claim') }}" class="{% if request.endpoint == 'claim' %}active{% endif %}"><i class="fa-solid fa-file-circle-plus"></i> New Claim</a>
+      <a href="{{ url_for('claims_list') }}" class="{% if request.endpoint in ['claims_list', 'update_status'] %}active{% endif %}"><i class="fa-solid fa-table-list"></i> Claims</a>
+      <a href="{{ url_for('landing') }}" class="nav-ghost"><i class="fa-solid fa-globe"></i> Site</a>
+      <span class="user-pill"><i class="fa-solid fa-circle-user"></i> {{ session.get('username') }}</span>
+      <a href="{{ url_for('logout') }}" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </nav>
+    {% else %}
+    <nav class="nav">
+      <a href="{{ url_for('landing') }}"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="{{ url_for('login') }}" class="nav-cta">Sign Up</a>
+    </nav>
+    {% endif %}
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert alert-{{ category }}"><i class="fa-solid {% if category == 'error' %}fa-circle-exclamation{% else %}fa-circle-check{% endif %}"></i> {{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer"><span class="logo-mini">Guard<span class="brand-dot">.</span>In</span> — Insurance Protects Your Life · demo app (in-memory, resets on restart)</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — ClaimCare{% endblock %}
+{% block content %}
+<div class="card narrow empty">
+  <div class="big">{% if code == 404 %}🧭{% else %}⚠️{% endif %}</div>
+  <h1>{{ code }} — Oops</h1>
+  <p class="muted">{{ message }}</p>
+  <p><a href="{{ url_for('dashboard') }}" class="btn primary">← Back to Dashboard</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guard.In — Insurance Protects Your Life</title>
+  <meta name="description" content="Guard.In — modern insurance for life, health, home and auto. Fast claims, transparent pricing, 24/7 human support." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}" />
+</head>
+<body id="home">
+
+  <!-- A. Header / Navigation -->
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a href="#home" class="logo" aria-label="Guard.In home">Guard<span class="logo-dot">.</span>In</a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#why" class="nav-link">About Us</a>
+        <a href="#insurance" class="nav-link">Insurance</a>
+        <a href="#how" class="nav-link">How It Work</a>
+        <a href="{{ url_for('login') }}" class="btn btn-dark nav-cta-mobile">Sign Up</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="{{ url_for('login') }}" class="btn btn-dark btn-pill">Sign Up</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- B. Hero Section -->
+    <section class="hero wrap">
+      <div class="hero-left">
+        <span class="pill-badge"><span class="pulse"></span> Daily Activity</span>
+        <h1>Insurance Protects Your Life.</h1>
+        <p class="lede">Simple, honest cover for health, life, home and auto — clear pricing, fast claims, and real humans when you need help most.</p>
+
+        <div class="hero-cta">
+          <a href="#insurance" class="btn btn-black btn-pill btn-get">
+            Get Started
+            <span class="arrow-circle"><i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+          <button class="video-btn" id="videoBtn" type="button">
+            <span class="play-circle"><i class="fa-solid fa-play"></i></span>
+            <span>Video Introduction</span>
+          </button>
+        </div>
+
+        <dl class="stats-bar">
+          <div class="stat">
+            <dt class="sr">Years of Experience</dt>
+            <dd><strong data-count="30">30+</strong><span>Years of Experience</span></dd>
+          </div>
+          <div class="stat">
+            <dt class="sr">Insurance services</dt>
+            <dd><strong data-count="15">15+</strong><span>Insurance services</span></dd>
+          </div>
+          <div class="stat">
+            <dt class="sr">Happy Clients</dt>
+            <dd><strong data-count="240" data-suffix="K">240K</strong><span>Happy Clients</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-circle">
+          <img
+            src="https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=900&q=80"
+            alt="Happy family protected by Guard.In insurance"
+            loading="eager" />
+        </div>
+
+        <div class="policy-badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="policy-ring">
+            <defs><path id="circlePath" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
+            <text><textPath href="#circlePath">INSURANCE POLICY • GUARD.IN • </textPath></text>
+          </svg>
+          <span class="policy-center"><i class="fa-solid fa-shield-halved"></i></span>
+        </div>
+
+        <div class="float-card float-top">
+          <span class="float-icon teal"><i class="fa-solid fa-circle-check"></i></span>
+          <div><strong>Claim Approved</strong><small>₹4,80,000 • 2 days ago</small></div>
+        </div>
+        <div class="float-card float-bottom">
+          <span class="avatars">
+            <img src="https://i.pravatar.cc/64?img=12" alt="" /><img src="https://i.pravatar.cc/64?img=32" alt="" /><img src="https://i.pravatar.cc/64?img=45" alt="" />
+          </span>
+          <div><strong>240K+ clients</strong><small><i class="fa-solid fa-star"></i> 4.9 rated</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- C. Feature Grid -->
+    <section class="wrap" id="why">
+      <div class="dark-panel">
+        <p class="eyebrow">Why choose us</p>
+        <h2>Why We're Better than Others</h2>
+        <p class="panel-sub">No jargon. No hidden clauses. Just fast, fair protection built for real life.</p>
+
+        <div class="card-grid" id="insurance">
+          <article class="feature-card">
+            <span class="icon-badge"><i class="fa-solid fa-shield-halved"></i></span>
+            <h3>Comprehensive Coverage</h3>
+            <p>One plan for health, life, home and auto — with clear limits and zero surprise exclusions.</p>
+            <a href="#how" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+          <article class="feature-card">
+            <span class="icon-badge"><i class="fa-solid fa-bolt"></i></span>
+            <h3>Lightning-Fast Claims</h3>
+            <p>File in 3 minutes, track live, and get payouts in days — not months. 96% settled on time.</p>
+            <a href="#how" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+          <article class="feature-card">
+            <span class="icon-badge"><i class="fa-solid fa-headset"></i></span>
+            <h3>24/7 Human Support</h3>
+            <p>Real advisors on call, chat and video — in 8 languages, whenever an emergency hits.</p>
+            <a href="#how" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+          <article class="feature-card">
+            <span class="icon-badge"><i class="fa-solid fa-chart-line"></i></span>
+            <h3>Transparent Pricing</h3>
+            <p>See exactly what you pay and why. No agents' commission traps, cancel anytime.</p>
+            <a href="#how" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- D. Process + Content -->
+    <section class="wrap process" id="how">
+      <p class="eyebrow center">Simple process</p>
+      <h2 class="center">How Claim Insurance</h2>
+      <p class="muted center section-sub">From incident to payout in three clear steps — fully trackable online.</p>
+
+      <div class="steps-grid">
+        <article class="step-card">
+          <span class="step-num">01</span>
+          <span class="step-icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+          <h3>Submit Your Claim</h3>
+          <p>Pick your policy, add photos and bills. Takes under 3 minutes on phone or desktop.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">02</span>
+          <span class="step-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+          <h3>Review &amp; Verify</h3>
+          <p>Our risk engine + human reviewer verify instantly and keep you updated by SMS.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">03</span>
+          <span class="step-icon"><i class="fa-solid fa-hand-holding-dollar"></i></span>
+          <h3>Get Paid Fast</h3>
+          <p>Approved amount lands directly in your bank. Track every status change live.</p>
+        </article>
+      </div>
+
+      <div class="content-split">
+        <div class="collage">
+          <img class="collage-main" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="Advisor shaking hands with a happy client" loading="lazy" />
+          <img class="collage-small" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=500&q=80" alt="Support advisor on a video call" loading="lazy" />
+          <div class="exp-badge"><strong>30+</strong><span>Years of trust</span></div>
+        </div>
+
+        <div class="content-text">
+          <p class="eyebrow">Claim with confidence</p>
+          <h2>Protection that moves at your speed.</h2>
+          <p class="muted">Link your policy, file a claim, and watch it move from Submitted → Under Review → Approved — all in one dashboard.</p>
+          <ul class="check-list">
+            <li><i class="fa-solid fa-circle-check"></i> Auto risk check flags issues before they delay you</li>
+            <li><i class="fa-solid fa-circle-check"></i> Partial-match search by Claim ID or Policy Number</li>
+            <li><i class="fa-solid fa-circle-check"></i> Paperless KYC and digital document vault</li>
+          </ul>
+          <div class="content-cta">
+            <a href="{{ url_for('login') }}" class="btn btn-black btn-pill btn-get">Start a Claim <span class="arrow-circle"><i class="fa-solid fa-arrow-right"></i></span></a>
+            <a href="#why" class="link-more">Explore plans →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA banner -->
+    <section class="wrap">
+      <div class="cta-banner">
+        <div>
+          <h2>Ready to feel fully protected?</h2>
+          <p>Join 240,000+ happy clients. Get a quote in 60 seconds.</p>
+        </div>
+        <a href="{{ url_for('login') }}" class="btn btn-teal btn-pill">Get Covered Now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a href="#home" class="logo light">Guard<span class="logo-dot">.</span>In</a>
+      <p>© 2026 Guard.In — Insurance Protects Your Life. Demo landing page.</p>
+      <div class="socials">
+        <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Video modal -->
+  <div class="modal" id="videoModal" aria-hidden="true" role="dialog" aria-label="Video introduction">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close video">✕</button>
+      <div class="modal-video">
+        <i class="fa-solid fa-circle-play"></i>
+        <p>Video Introduction<br /><small>Drop your product video / YouTube embed here.</small></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='landing.js') }}"></script>
+</body>
+</html>

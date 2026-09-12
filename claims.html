@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Claims — ClaimCare{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>📋 Claim Review</h1>
+    <p>Search, filter and update claim status. Risk flag explains <em>why</em> review may be needed; status tracks <em>where</em> the claim is.</p>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('claim') }}" class="btn primary">+ New Claim</a>
+  </div>
+</div>
+
+<form method="get" action="{{ url_for('claims_list') }}" class="toolbar">
+  <input type="text" name="q" placeholder="🔍 Search Claim ID / Policy No" value="{{ query }}">
+  <select name="status">
+    <option value="">All statuses</option>
+    {% for s in statuses %}
+    <option value="{{ s }}" {% if s == status_filter %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn">Search</button>
+  <a href="{{ url_for('claims_list') }}" class="btn ghost">Clear</a>
+</form>
+
+{% if claims %}
+<p class="muted small">{{ claims|length }} claim(s) shown</p>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Claim ID</th><th>Policy</th><th>Type</th><th>Amount</th>
+      <th>Status</th><th>Risk flag</th><th>Why flagged</th><th>Change status</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for c in claims %}
+  <tr>
+    <td><span class="row-id">{{ c.claim_id }}</span><br><span class="muted small">{{ c.customer_name }}</span></td>
+    <td>{{ c.policy_number }}</td>
+    <td>{{ c.claim_type }}</td>
+    <td class="amount">{{ c.claim_amount }}</td>
+    <td><span class="badge status-{{ c.status|lower|replace(' ', '-') }}">{{ c.status }}</span></td>
+    <td><span class="badge risk-{{ c.risk_level|lower|replace(' ', '-') }}">{{ c.risk_level }}</span></td>
+    <td class="reasons">
+      {% if c.risk_reasons %}
+      <ul>{% for r in c.risk_reasons %}<li>{{ r }}</li>{% endfor %}</ul>
+      {% else %}<span class="muted">—</span>{% endif %}
+    </td>
+    <td>
+      <form method="post" action="{{ url_for('update_status', claim_id=c.claim_id) }}" class="inline-form">
+        <input type="hidden" name="q" value="{{ query }}">
+        <input type="hidden" name="status_filter" value="{{ status_filter }}">
+        <select name="status">
+          {% for s in statuses %}
+          <option value="{{ s }}" {% if s == c.status %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="btn small">Update</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="card empty">
+  <div class="big">🔍</div>
+  <p>🔍 No matching claim found. Try a different Claim ID, Policy Number, or status filter.</p>
+  <p><a href="{{ url_for('claims_list') }}" class="btn ghost">Clear search</a>
+     <a href="{{ url_for('claim') }}" class="btn primary">Submit a claim</a></p>
+</div>
+{% endif %}
+{% endblock %}
